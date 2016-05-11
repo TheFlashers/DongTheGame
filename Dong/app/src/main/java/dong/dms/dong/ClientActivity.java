@@ -38,38 +38,8 @@ public class ClientActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-/*
-        BluetoothAdapter bluetoothAdapter
-                = BluetoothAdapter.getDefaultAdapter();
-        if (bluetoothAdapter == null)
-            Toast.makeText(this, "no access to blue tooth",
-                    Toast.LENGTH_LONG).show();
-        else {
-            Toast.makeText(this, "bluetooth available",
-                    Toast.LENGTH_LONG).show();
-            // create a broadcast receiver notified when Bluetooth status
-            // changes
-            if (bluetoothStatusBroadcastReceiver == null)
-                bluetoothStatusBroadcastReceiver
-                        = new BluetoothStatusBroadcastReceiver();
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
-            intentFilter.addAction
-                    (BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
-            registerReceiver(bluetoothStatusBroadcastReceiver,
-                    intentFilter);
-            if (!bluetoothAdapter.isEnabled()) {
-                Toast.makeText(this, "bluetooth not enabled",
-                        Toast.LENGTH_LONG).show();
-                // try to enable Bluetooth on device
-                Intent enableBluetoothIntent
-                        = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivity(enableBluetoothIntent);
-            } else
-                Toast.makeText(this, "bluetooth enabled",
-                        Toast.LENGTH_LONG).show();
-        }
-    */
+
+
     }
     
 
