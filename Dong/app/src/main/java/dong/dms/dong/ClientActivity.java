@@ -28,8 +28,9 @@ public class ClientActivity extends Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "You sent LOL", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                comNode.forward("LOL");
             }
         });
     }
@@ -44,7 +45,7 @@ public class ClientActivity extends Activity {
     }
 
     public void displayResult(String r) {
-        Toast.makeText(this, r, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, r, Toast.LENGTH_SHORT).show();
         Log.d("Device", r);
     }
 

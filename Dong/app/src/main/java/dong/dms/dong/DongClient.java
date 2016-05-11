@@ -43,12 +43,38 @@ public class DongClient implements ComNode{
 
     @Override
     public void forward(String message) {
-
+        try {
+            PrintWriter pw = new PrintWriter(new BufferedWriter
+                     (new OutputStreamWriter(socket.getOutputStream())));
+            pw.println(message);
+            pw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    public void stop() {
-
+    // implementation of ChatNode method
+    public void stop()
+    {  stopRequested = true;
+        if (deviceDiscoveryBroadcastReceiver != null)
+        {  clientActivity.unregisterReceiver
+                (deviceDiscoveryBroadcastReceiver);
+            deviceDiscoveryBroadcastReceiver = null;
+        }
+        synchronized (devices)
+        {  devices.notifyAll();
+        }
+        synchronized (messages)
+        {  messages.notifyAll();
+        }
+        if (socket != null)
+        {  try
+        {  socket.close();
+        }
+        catch (IOException e)
+        { // ignore
+        }
+        }
     }
 
     @Override
@@ -91,7 +117,44 @@ public class DongClient implements ComNode{
             return;
         }
 
+        // now check each device for the Bluetooth application UUID
+        // note only newer API support fetchUuidsWithSdp to perform SDP
+        socket = null;
+        for (BluetoothDevice device : devices)
+        {  // try to open a connection to device using UUID
+            try
+            {  clientActivity.displayResult
+                    ("CLIENT: checking for server on " + device.getName());
+                Log.w("ChatClient", "Checking for server on "
+                        + device.getName());
+                socket = device.createRfcommSocketToServiceRecord
+                        (ComNode.SERVICE_UUID);
+                // open the connection
+                socket.connect();
+                bluetoothAdapter.cancelDiscovery();
+                break;
+            }
+            catch (IOException e)
+            {  // ignore and try next device
+                socket = null;
+            }
+        }
+        if (socket == null)
+        {  clientActivity.displayResult
+                ("CLIENT: no server found, restart client");
+            Log.e("ChatClient", "No server service found");
+            stopRequested = true;
+            return;
+        }
+        clientActivity.displayResult("CLIENT: chat server found");
+        Log.w("ChatClient", "Chat server service found");
+
+        //sending
+
+
     }
+
+
 
     // inner class that receives device discovery changes
     public class DeviceDiscoveryBroadcastReceiver
@@ -131,41 +194,5 @@ public class DongClient implements ComNode{
     }
 
 
-    // inner class that handles sending messages to server chat nodes
-    private class DongSender implements Runnable
-    {
-        public void run()
-        {  PrintWriter pw = null;
-            try
-            {  pw = new PrintWriter(new BufferedWriter
-                    (new OutputStreamWriter(socket.getOutputStream())));
-            }
-            catch (IOException e)
-            {  Log.e("ChatClient", "Mailer IOException: " + e);
-                stop();
-            }
-            while (!stopRequested)
-            {  // get a message
-                String message;
-                synchronized (messages)
-                {  while (messages.size() == 0)
-                {  try
-                {  messages.wait();
-                }
-                catch (InterruptedException e)
-                { // ignore
-                }
-                    if (stopRequested)
-                        return;
-                }
-                    message = messages.remove(0);
-                }
-                // forward message to server
-                pw.println(message);
-                pw.flush();
-                clientActivity.displayResult
-                        ("CLIENT: sending message " + message);
-            }
-        }
-    }
+
 }
