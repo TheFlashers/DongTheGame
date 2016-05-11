@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * Created by MI on 11/05/16.
  */
-public interface ComNode {
+public interface ComNode extends Runnable{
 
     public static final UUID SERVICE_UUID
             = UUID.fromString("aa7e561f-591f-4767-bf26-e4bff3f0895f");
