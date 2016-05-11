@@ -19,4 +19,9 @@ public class DongClient implements ComNode{
     public void registerActivity(ClientActivity clientActivity) {
 
     }
+
+    @Override
+    public void run() {
+
+    }
 }
