@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 Log.d("lol", "ClientClicked");
                 ComNode chatNode = new DongClient();
                 Intent intent = new Intent(this, ClientActivity.class);
-                intent.putExtra(ClientActivity.class.getName(), chatNode);
+                intent.putExtra("client", chatNode);
                 startActivity(intent);
 
                 break;
@@ -103,7 +103,6 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     public void onStop()
     {  super.onStop();
-        if (bluetoothStatusBroadcastReceiver != null)
-            unregisterReceiver(bluetoothStatusBroadcastReceiver);
+
     }
 }

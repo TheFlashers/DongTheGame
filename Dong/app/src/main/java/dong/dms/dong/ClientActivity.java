@@ -1,15 +1,13 @@
 package dong.dms.dong;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,14 +15,15 @@ public class ClientActivity extends Activity {
 
 
     private BroadcastReceiver bluetoothStatusBroadcastReceiver;
+    private ComNode comNode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-
+        Intent intent = getIntent();
+        comNode = (ComNode)intent.getExtras().get("client");
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,8 +37,22 @@ public class ClientActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        comNode.registerActivity(this);
+        Thread thread = new Thread(comNode);
+        thread.start();
 
+    }
 
+    public void displayResult(String r) {
+        Toast.makeText(this, r, Toast.LENGTH_SHORT).show();
+        Log.d("Device", r);
+    }
+
+    @Override
+    public void onStop()
+    {  super.onStop();
+
+            comNode.stop();
     }
     
 
