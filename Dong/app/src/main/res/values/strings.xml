@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Dong</string>
+    <string name="title_activity_dong_server">DongServer</string>
 </resources>
