@@ -2,4 +2,34 @@
     <string name="app_name">Dong</string>
     <string name="title_activity_dong_server">DongServer</string>
     <string name="title_activity_client">ClientActivity</string>
+    <!-- MENU LAYOUT -->
+    <string name="menu_title">DONG</string>
+    <string name="menu_play">Play</string>
+    <string name="menu_register">Register</string>
+    <string name="menu_details">Details</string>
+    <string name="menu_exit">Exit</string>
+    <!-- CLIENT SERVER LAYOUT -->
+    <string name="client_server_host">Host Game</string>
+    <string name="client_server_join">Join Game</string>
+    <!-- CHECK TAG LAYOUT -->
+    <string name="check_tag_prompt">If you have an activated tag, please scan now to view details</string>
+    <!-- TAG DETAILS LAYOUT -->
+    <string name="tag_details_name_placeholder">Name placeholder</string>
+    <string name="tag_details_wins">Wins:</string>
+    <string name="tag_details_wins_placeholder">0</string>
+    <string name="tag_details_losses">Losses:</string>
+    <string name="tag_details_losses_placeholder">0</string>
+    <!-- GAME FINISHED LAYOUT -->
+    <string name="game_finished_placeholder">Win/Lose placeholder</string>
+    <string name="game_finised_present_tag">Present tag to record score</string>
+    <string name="game_finished_menu_button">Main Menu</string>
+    <!-- REGISTER TAG LAYOUT -->
+    <string name="register_tag_name">Name:</string>
+    <string name="register_tag_name_placeholder">Joe Bloggs</string>
+    <string name="register_tag_paddle">Paddle:</string>
+    <string name="register_tag_paddle_red">Red:</string>
+    <string name="register_tag_paddle_green">Green:</string>
+    <string name="register_tag_paddle_blue">Blue:</string>
+    <string name="register_tag_write">Write to tag</string>
+    <string name="register_tag_cancel">Cancel</string>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <TextView
+        android:layout_width="566dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/check_tag_prompt"
+        android:textSize="15pt"
+        android:textColor="@color/text"/>
+
+</TableLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/tag_details_name_placeholder"
+        android:id="@+id/detailsNameText"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/text"
+        android:textSize="20pt"
+        android:layout_marginTop="25pt"/>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="20pt"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10pt">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/tag_details_wins"
+            android:id="@+id/detailsWinsText"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/text"
+            android:textSize="15pt"
+            android:layout_marginRight="10pt"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/tag_details_wins_placeholder"
+            android:id="@+id/detailsWinsCountText"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/text"
+            android:textSize="15pt"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="20pt"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/tag_details_losses"
+            android:id="@+id/detailsLossesText"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/text"
+            android:textSize="15pt"
+            android:layout_marginRight="10pt"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/tag_details_losses_placeholder"
+            android:id="@+id/detailsLossesCountText"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/text"
+            android:textSize="15pt"/>
+
+    </TableRow>
+
+
+</LinearLayout>
