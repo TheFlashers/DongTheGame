@@ -9,12 +9,12 @@
         android:text="@string/menu_title"
         android:id="@+id/titleText"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20pt"
+        android:layout_marginTop="10pt"
         android:textSize="30pt"
         android:textColor="@color/text"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="50pt"
         android:layout_height="wrap_content"
         android:text="@string/menu_play"
         android:id="@+id/playButton"
@@ -23,7 +23,15 @@
         android:textSize="8pt"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="50pt"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_register"
+        android:id="@+id/registerButton"
+        android:layout_gravity="center_horizontal"
+        android:textSize="8pt"/>
+
+    <Button
+        android:layout_width="50pt"
         android:layout_height="wrap_content"
         android:text="@string/menu_details"
         android:id="@+id/detailsButton"
@@ -31,7 +39,7 @@
         android:textSize="8pt"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="50pt"
         android:layout_height="wrap_content"
         android:text="@string/menu_exit"
         android:id="@+id/exitButton"

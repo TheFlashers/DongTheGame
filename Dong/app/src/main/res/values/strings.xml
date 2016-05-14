@@ -5,6 +5,7 @@
     <!-- MENU LAYOUT -->
     <string name="menu_title">DONG</string>
     <string name="menu_play">Play</string>
+    <string name="menu_register">Register</string>
     <string name="menu_details">Details</string>
     <string name="menu_exit">Exit</string>
     <!-- CLIENT SERVER LAYOUT -->
@@ -22,4 +23,13 @@
     <string name="game_finished_placeholder">Win/Lose placeholder</string>
     <string name="game_finised_present_tag">Present tag to record score</string>
     <string name="game_finished_menu_button">Main Menu</string>
+    <!-- REGISTER TAG LAYOUT -->
+    <string name="register_tag_name">Name:</string>
+    <string name="register_tag_name_placeholder">Joe Bloggs</string>
+    <string name="register_tag_paddle">Paddle:</string>
+    <string name="register_tag_paddle_red">Red:</string>
+    <string name="register_tag_paddle_green">Green:</string>
+    <string name="register_tag_paddle_blue">Blue:</string>
+    <string name="register_tag_write">Write to tag</string>
+    <string name="register_tag_cancel">Cancel</string>
 </resources>
