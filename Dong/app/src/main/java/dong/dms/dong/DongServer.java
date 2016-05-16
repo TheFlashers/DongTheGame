@@ -60,6 +60,16 @@ public class DongServer implements ComNode{
         this.clientActivity = clientActivity;
     }
 
+    @Override
+    public void forwardObject(Object o) {
+
+    }
+
+    @Override
+    public Object receieveObject() {
+        return null;
+    }
+
     private class ClientRunnable implements Runnable {
 
         private BluetoothSocket socket;

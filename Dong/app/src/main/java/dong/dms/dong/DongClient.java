@@ -83,6 +83,16 @@ public class DongClient implements ComNode{
     }
 
     @Override
+    public void forwardObject(Object o) {
+
+    }
+
+    @Override
+    public Object receieveObject() {
+        return null;
+    }
+
+    @Override
     public void run() {
         stopRequested = false;
         devices.clear();
