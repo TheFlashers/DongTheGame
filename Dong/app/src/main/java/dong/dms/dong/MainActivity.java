@@ -83,7 +83,7 @@ public class MainActivity extends Activity implements OnClickListener {
         switch (view.getId() /*to get clicked view id**/) {
             case R.id.client_start_button:
                 Log.d("lol", "ClientClicked");
-                ComNode chatNode = new DongClient();
+                ComNode chatNode = new BluetoothHelper(false);
                 Intent intent = new Intent(this, ClientActivity.class);
                 intent.putExtra("type", chatNode);
                 startActivity(intent);

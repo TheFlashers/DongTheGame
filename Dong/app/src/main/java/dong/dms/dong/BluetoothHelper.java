@@ -32,6 +32,9 @@ public class BluetoothHelper implements ComNode{
 
     private boolean isServer;
 
+    private ServerRunnable serverRunnable;
+
+
 
     BluetoothHelper(boolean isServer) {
         this.stopRequested = false;
@@ -163,11 +166,12 @@ public class BluetoothHelper implements ComNode{
 
             while (!stopRequested) {
                 try {
-                    BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    while(!stopRequested){
-                        String m = br.readLine();
-                        Log.d("received", m);
-                    }
+                    BluetoothSocket socket = serverSocket.accept(10000);
+                    ServerRunnable client = new ServerRunnable(socket);
+                    this.serverRunnable = client;
+                    new Thread(serverRunnable).start();
+
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -280,6 +284,28 @@ public class BluetoothHelper implements ComNode{
                 clientActivity.displayResult
                         ("CLIENT: device discovery finished");
                 Log.w("ChatClient", "Device discovery finished");
+            }
+        }
+    }
+
+    private class ServerRunnable implements Runnable {
+
+        private BluetoothSocket socket;
+
+        public ServerRunnable(BluetoothSocket sc) {
+            socket = sc;
+        }
+
+        @Override
+        public void run() {
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                while(!stopRequested){
+                    String m = br.readLine();
+                    Log.d("received", m);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
