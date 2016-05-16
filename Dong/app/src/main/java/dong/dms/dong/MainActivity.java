@@ -85,15 +85,14 @@ public class MainActivity extends Activity implements OnClickListener {
                 Log.d("lol", "ClientClicked");
                 ComNode chatNode = new DongClient();
                 Intent intent = new Intent(this, ClientActivity.class);
-                intent.putExtra("client", chatNode);
+                intent.putExtra("type", chatNode);
                 startActivity(intent);
 
                 break;
             case R.id.server_start_button:
-                Log.d("lol", "ServerClicked");
-                ComNode cn = new DongClient();
+                ComNode ServerComNode = new BluetoothHelper(true);
                 Intent i = new Intent(this, ClientActivity.class);
-                i.putExtra(ClientActivity.class.getName(), cn);
+                i.putExtra("type", ServerComNode);
                 startActivity(i);
             default:
                 break;

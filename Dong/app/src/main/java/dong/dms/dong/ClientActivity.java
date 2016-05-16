@@ -23,7 +23,7 @@ public class ClientActivity extends Activity {
         setContentView(R.layout.activity_client);
 
         Intent intent = getIntent();
-        comNode = (ComNode)intent.getExtras().get("client");
+        comNode = (ComNode)intent.getExtras().get("type");
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
