@@ -70,6 +70,11 @@ public class DongServer implements ComNode{
         return null;
     }
 
+    @Override
+    public void discover() {
+
+    }
+
     private class ClientRunnable implements Runnable {
 
         private BluetoothSocket socket;
@@ -91,6 +96,7 @@ public class DongServer implements ComNode{
             }
         }
     }
+
 
 }
 

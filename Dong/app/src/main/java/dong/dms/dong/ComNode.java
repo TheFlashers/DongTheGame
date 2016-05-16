@@ -16,5 +16,6 @@ public interface ComNode extends Runnable, Serializable {
     public void registerActivity(ClientActivity clientActivity);
     public void forwardObject(Object o);
     public Object receieveObject();
+    public void discover();
 
 }

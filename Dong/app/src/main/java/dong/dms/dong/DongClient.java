@@ -93,6 +93,11 @@ public class DongClient implements ComNode{
     }
 
     @Override
+    public void discover() {
+
+    }
+
+    @Override
     public void run() {
         stopRequested = false;
         devices.clear();
