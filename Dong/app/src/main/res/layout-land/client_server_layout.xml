@@ -5,21 +5,21 @@
     android:background="@color/background">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="130pt"
         android:layout_height="wrap_content"
         android:text="@string/client_server_host"
         android:id="@+id/hostButton"
         android:layout_marginTop="30pt"
         android:layout_gravity="center_horizontal"
-        android:textSize="25pt"/>
+        android:textSize="20pt"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="130pt"
         android:layout_height="wrap_content"
         android:text="@string/client_server_join"
         android:id="@+id/joinButton"
         android:layout_marginTop="10pt"
         android:layout_gravity="center_horizontal"
-        android:textSize="25pt"/>
+        android:textSize="20pt"/>
 
 </LinearLayout>
