@@ -7,12 +7,11 @@
     <string name="menu_play">Play</string>
     <string name="menu_register">Register</string>
     <string name="menu_details">Details</string>
-    <string name="menu_exit">Exit</string>
     <!-- CLIENT SERVER LAYOUT -->
     <string name="client_server_host">Host Game</string>
     <string name="client_server_join">Join Game</string>
     <!-- CHECK TAG LAYOUT -->
-    <string name="check_tag_prompt">If you have an activated tag, please scan now to view details</string>
+    <string name="check_tag_prompt">If you have a registered tag, please scan now to view details</string>
     <!-- TAG DETAILS LAYOUT -->
     <string name="tag_details_name_placeholder">Name placeholder</string>
     <string name="tag_details_wins">Wins:</string>
@@ -31,5 +30,6 @@
     <string name="register_tag_paddle_green">Green:</string>
     <string name="register_tag_paddle_blue">Blue:</string>
     <string name="register_tag_write">Write to tag</string>
-    <string name="register_tag_cancel">Cancel</string>
+    <string name="title_activity_tag_details">TagDetailsActivity</string>
+    <string name="title_activity_check_tag">CheckTagActivity</string>
 </resources>

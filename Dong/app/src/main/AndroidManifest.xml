@@ -11,13 +11,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--
         <activity
             android:name=".DongServer"
             android:label="@string/title_activity_dong_server"
@@ -25,7 +29,31 @@
         <activity
             android:name=".ClientActivity"
             android:label="@string/title_activity_client"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        -->
+        <activity
+            android:name=".ClientServerActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".CheckTagActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".RegisterTagActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".TagDetailsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".GameActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
+        <activity android:name=".GameFinishedActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

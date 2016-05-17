@@ -145,12 +145,6 @@
             android:text="@string/register_tag_write"
             android:id="@+id/writeButton" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/register_tag_cancel"
-            android:id="@+id/cancelButton" />
     </TableRow>
 
 </TableLayout>

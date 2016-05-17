@@ -38,12 +38,4 @@
         android:layout_gravity="center_horizontal"
         android:textSize="8pt"/>
 
-    <Button
-        android:layout_width="50pt"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_exit"
-        android:id="@+id/exitButton"
-        android:layout_gravity="center_horizontal"
-        android:textSize="8pt"/>
-
 </LinearLayout>
