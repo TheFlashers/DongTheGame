@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 public class ClientActivity extends Activity {
 
 
@@ -28,9 +30,14 @@ public class ClientActivity extends Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                GameObject go = new GameObject();
                 Snackbar.make(view, "You sent LOL", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                comNode.forward("LOL");
+                try {
+                    comNode.sendObject(go);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

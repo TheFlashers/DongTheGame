@@ -10,7 +10,12 @@ import android.content.IntentFilter;
 import android.util.Log;
 
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -80,6 +85,29 @@ public class DongClient implements ComNode{
     @Override
     public void registerActivity(ClientActivity clientActivity) {
         this.clientActivity = clientActivity;
+    }
+
+    @Override
+    public void sendObject(GameObject o) throws IOException {
+        OutputStream os = socket.getOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(os);
+        oos.writeObject(o);
+        oos.flush();
+        os.close();
+
+    }
+
+    @Override
+    public GameObject receiveObject() throws IOException {
+        InputStream i = socket.getInputStream();
+        ObjectInputStream ois = new ObjectInputStream(i);
+        GameObject o = null;
+        try {
+            o = (GameObject) ois.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return o;
     }
 
     @Override

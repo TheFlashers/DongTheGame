@@ -1,5 +1,6 @@
 package dong.dms.dong;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -14,5 +15,7 @@ public interface ComNode extends Runnable, Serializable {
     public void forward(String message);
     public void stop();
     public void registerActivity(ClientActivity clientActivity);
+    public void sendObject(GameObject go) throws IOException;
+    public GameObject receiveObject() throws IOException;
 
 }
