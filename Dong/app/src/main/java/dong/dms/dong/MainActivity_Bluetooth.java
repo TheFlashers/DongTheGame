@@ -91,9 +91,9 @@ public class MainActivity_Bluetooth extends Activity implements OnClickListener 
                 break;
             case R.id.server_start_button:
                 Log.d("lol", "ServerClicked");
-                ComNode cn = new DongClient();
+                ComNode cn = new DongServer();
                 Intent i = new Intent(this, ClientActivity.class);
-                i.putExtra(ClientActivity.class.getName(), cn);
+                i.putExtra("client", cn);
                 startActivity(i);
             default:
                 break;
