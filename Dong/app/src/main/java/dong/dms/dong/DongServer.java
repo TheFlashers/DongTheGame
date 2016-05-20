@@ -81,7 +81,7 @@ public class DongServer implements ComNode{
         private BluetoothSocket socket;
 
         public ClientRunnable(BluetoothSocket sc) {
-            socket = sc;
+            this.socket = sc;
         }
 
         @Override

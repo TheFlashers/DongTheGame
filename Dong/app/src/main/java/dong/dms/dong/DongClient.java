@@ -34,6 +34,8 @@ public class DongClient implements ComNode{
     private BluetoothSocket socket;
     private List<String> messages;//list of messages still to be mailed
 
+    ClientRunnable cr;
+
 
     DongClient() {
         messages = new ArrayList<String>();
@@ -41,7 +43,6 @@ public class DongClient implements ComNode{
         clientActivity = null;
         devices = new ArrayList<BluetoothDevice>();
         socket = null;
-
     }
 
 
@@ -177,8 +178,11 @@ public class DongClient implements ComNode{
         clientActivity.displayResult("CLIENT: chat server found");
         Log.w("ChatClient", "Chat server service found");
 
-        //sending
 
+
+        //sending
+        cr = new ClientRunnable(socket);
+        cr.run();
 
     }
 
@@ -221,6 +225,28 @@ public class DongClient implements ComNode{
         }
     }
 
+
+    private class ClientRunnable implements Runnable {
+
+        private BluetoothSocket socket;
+
+        public ClientRunnable(BluetoothSocket sc) {
+            socket = sc;
+        }
+
+        @Override
+        public void run() {
+            try {
+                while(!stopRequested){
+                    GameObject m = receiveObject();
+                    Log.d("received", m.lol);
+                    clientActivity.displayResult(m.lol);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 }
