@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -36,6 +38,7 @@ public class DongClient implements ComNode{
         clientActivity = null;
         devices = new ArrayList<BluetoothDevice>();
         socket = null;
+
 
     }
 
@@ -149,7 +152,7 @@ public class DongClient implements ComNode{
         }
         clientActivity.displayResult("CLIENT: chat server found");
         Log.w("ChatClient", "Chat server service found");
-
+        new Thread(new ObjectReceiver()).start();
         //sending
 
 
@@ -194,6 +197,28 @@ public class DongClient implements ComNode{
         }
     }
 
+
+    private class ObjectReceiver implements Runnable {
+
+        public ObjectReceiver() {
+
+        }
+
+        @Override
+        public void run() {
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                while(!stopRequested){
+                    String m = br.readLine();
+                    GameObject go = GameObject.parseJSON(m);
+                    Log.d("received", String.valueOf(go.isWonMatch));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
 
 }

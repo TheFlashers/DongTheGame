@@ -6,8 +6,11 @@ import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 /**
  * Created by Naki on 11/05/2016.
@@ -49,7 +52,7 @@ public class DongServer implements ComNode{
 
     @Override
     public void forward(GameObject go) {
-
+        client.send(go);
     }
 
     @Override
@@ -76,8 +79,21 @@ public class DongServer implements ComNode{
                 BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 while(!stopRequested){
                     String m = br.readLine();
-                    Log.d("received", m);
+                    GameObject go = GameObject.parseJSON(m);
+                    Log.d("received", String.valueOf(go.isWonMatch));
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void send(GameObject go) {
+            try {
+                String gameObjectString = go.createJsonString();
+                PrintWriter pw = new PrintWriter(new BufferedWriter
+                        (new OutputStreamWriter(socket.getOutputStream())));
+                pw.println(gameObjectString);
+                pw.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
