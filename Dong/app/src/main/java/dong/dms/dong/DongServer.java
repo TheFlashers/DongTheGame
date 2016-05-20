@@ -48,7 +48,7 @@ public class DongServer implements ComNode{
     }
 
     @Override
-    public void forward(String message) {
+    public void forward(GameObject go) {
 
     }
 

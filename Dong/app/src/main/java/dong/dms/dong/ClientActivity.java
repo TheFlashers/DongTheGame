@@ -30,7 +30,7 @@ public class ClientActivity extends Activity {
             public void onClick(View view) {
                 Snackbar.make(view, "You sent LOL", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                comNode.forward("LOL");
+                comNode.forward(new GameObject());
             }
         });
     }
