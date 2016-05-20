@@ -54,6 +54,10 @@ public class ClientActivity extends Activity {
     public void displayResult(String r) {
         //Toast.makeText(this, r, Toast.LENGTH_SHORT).show();
         Log.d("Device", r);
+        Snackbar snackbar = Snackbar
+                .make(this.findViewById(android.R.id.content).getRootView(), r, Snackbar.LENGTH_SHORT);
+
+        snackbar.show();
     }
 
     @Override

@@ -21,7 +21,6 @@ public class DongServer implements ComNode{
     private boolean stopRequested;
     private ClientRunnable client;
     private ClientActivity clientActivity;
-    BluetoothSocket socket;
 
     @Override
     public void run() {
@@ -37,7 +36,7 @@ public class DongServer implements ComNode{
 
         while (!stopRequested) {
             try {
-                socket = serverSocket.accept(10000);
+                BluetoothSocket socket = serverSocket.accept(10000);
                 ClientRunnable client = new ClientRunnable(socket);
                 this.client = client;
                 new Thread(client).start();
@@ -93,7 +92,7 @@ public class DongServer implements ComNode{
         private BluetoothSocket socket;
 
         public ClientRunnable(BluetoothSocket sc) {
-            socket = sc;
+            this.socket = sc;
         }
 
         @Override
