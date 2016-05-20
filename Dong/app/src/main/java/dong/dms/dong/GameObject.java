@@ -30,4 +30,22 @@ public class GameObject {
         return GameObject.toString();
     }
 
+    public static GameObject parseJSON(String s) {
+
+        GameObject go = new GameObject();
+
+        try {
+            JSONObject o = new JSONObject(s);
+            go.velocityX = o.getInt("velX");
+            go.velocityY = o.getInt("velY");
+            go.x = o.getInt("x");
+            go.isWonRound = o.getBoolean("roundWon");
+            go.isWonMatch = o.getBoolean("wonMatch");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return go;
+    }
+
 }
