@@ -199,11 +199,7 @@ public class DongClient implements ComNode{
 
 
     private class ObjectReceiver implements Runnable {
-
-        public ObjectReceiver() {
-
-        }
-
+        
         @Override
         public void run() {
             try {
