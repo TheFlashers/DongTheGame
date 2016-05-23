@@ -6,7 +6,7 @@
     <string name="menu_title">DONG</string>
     <string name="menu_play">Play</string>
     <string name="menu_register">Register</string>
-    <string name="menu_details">Details</string>
+    <string name="menu_details">Hold tag to phone to view details</string>
     <!-- CLIENT SERVER LAYOUT -->
     <string name="client_server_host">Host Game</string>
     <string name="client_server_join">Join Game</string>

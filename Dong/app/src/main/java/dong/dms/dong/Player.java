@@ -1,38 +1,53 @@
 package dong.dms.dong;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class Player implements Serializable {
 
-    private String name;
-    private int wins;
-    private int losses;
-    private int red;
-    private int green;
-    private int blue;
+    private byte wins;
+    private byte losses;
+    private byte red;
+    private byte green;
+    private byte blue;
 
-    public Player(String name) {
-        this.name = name;
-        wins = 0;
-        losses = 0;
+    public Player() {
+        wins = (byte) new Random().nextInt(100);
+        losses = (byte) new Random().nextInt(100);
     }
 
-    public String getName() {
-        return name;
+    public void setWins(byte wins) {
+        this.wins = wins;
     }
 
-    public int getWins() {
+    public byte getWins() {
         return wins;
     }
 
-    public int getLosses() {
+    public void setLosses(byte losses) {
+        this.losses = losses;
+    }
+
+    public byte getLosses() {
         return losses;
     }
 
-    public void setPaddleColours(int red, int green, int blue) {
+    public void setPaddleColours(byte red, byte green, byte blue) {
         this.red = red;
         this.green = green;
         this.blue = blue;
+    }
+
+    public byte getRed() {
+        return red;
+    }
+
+    public byte getGreen() {
+        return green;
+    }
+
+    public byte getBlue() {
+        return blue;
     }
 
     public void incrementWins() {
