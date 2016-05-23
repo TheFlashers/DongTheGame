@@ -30,13 +30,15 @@ public class DongServer implements ComNode{
             e.printStackTrace();
         }
 
-        while (!stopRequested) {
+        boolean found = false;
+
+        while (!found) {
             try {
                 BluetoothSocket socket = serverSocket.accept(10000);
                 ClientRunnable client = new ClientRunnable(socket);
                 this.client = client;
                 new Thread(client).start();
-
+                found = true;
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -46,7 +48,7 @@ public class DongServer implements ComNode{
     }
 
     @Override
-    public void forward(String message) {
+    public void forward(GameObject go) {
 
     }
 

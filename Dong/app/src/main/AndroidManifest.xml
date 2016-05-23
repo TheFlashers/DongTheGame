@@ -25,12 +25,12 @@
         <activity
             android:name=".DongServer"
             android:label="@string/title_activity_dong_server"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity
             android:name=".ClientActivity"
             android:label="@string/title_activity_client"
             android:theme="@style/AppTheme.NoActionBar" />
-        -->
+
         <activity
             android:name=".ClientServerActivity"
             android:configChanges="orientation"

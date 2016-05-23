@@ -42,11 +42,12 @@ public class DongClient implements ComNode{
 
 
     @Override
-    public void forward(String message) {
+    public void forward(GameObject go) {
         try {
+            String gameObjectString = go.createJsonString();
             PrintWriter pw = new PrintWriter(new BufferedWriter
                      (new OutputStreamWriter(socket.getOutputStream())));
-            pw.println(message);
+            pw.println(gameObjectString);
             pw.flush();
         } catch (IOException e) {
             e.printStackTrace();
