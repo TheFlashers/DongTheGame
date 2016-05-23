@@ -14,21 +14,11 @@
         android:textSize="20pt"
         android:layout_marginTop="20pt"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/game_finised_present_tag"
-        android:id="@+id/presentTagText"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/text"
-        android:textSize="12pt"
-        android:layout_marginTop="10pt"/>
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/game_finished_menu_button"
-        android:id="@+id/mainMenuButton"
+        android:text="@string/register_tag_write"
+        android:id="@+id/writeTagButton"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10pt"/>
 

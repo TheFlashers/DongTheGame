@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a448a38c-e33b-43d0-af89-067b994eb1d8" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Dong/.idea/dictionaries/MI.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Dong/.idea/vcs.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dong/.idea/gradle.xml" afterPath="$PROJECT_DIR$/Dong/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dong/.idea/misc.xml" afterPath="$PROJECT_DIR$/Dong/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dong/app/src/main/java/dong/dms/dong/MainActivity.java" afterPath="$PROJECT_DIR$/Dong/app/src/main/java/dong/dms/dong/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dong/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/Dong/app/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dong/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/Dong/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dong/app/src/main/java/dong/dms/dong/RegisterTagActivity.java" afterPath="$PROJECT_DIR$/Dong/app/src/main/java/dong/dms/dong/RegisterTagActivity.java" />
     </list>
     <ignored path="DMS2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,13 +58,13 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane />
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">

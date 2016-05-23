@@ -18,42 +18,17 @@
         <TextView
             android:layout_width="75pt"
             android:layout_height="wrap_content"
-            android:text="@string/register_tag_name"
-            android:id="@+id/registerNameText"
+            android:text="@string/register_tag_paddle"
+            android:id="@+id/registerPaddleText"
             android:textColor="@color/text"
             android:textSize="15pt"
             android:layout_marginRight="20pt"/>
 
-        <EditText
+        <TextView
             android:layout_width="75pt"
-            android:layout_height="match_parent"
-            android:id="@+id/registerNameTextField"
-            android:textColor="@color/text"
-            android:text="@string/register_tag_name_placeholder"
-            android:textSize="8pt" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="2pt">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/register_tag_paddle"
-            android:id="@+id/registerPaddleText"
-            android:textColor="@color/text"
-            android:textSize="15pt" />
-
-        <TextView
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/registerPaddleColour"
             android:background="@color/colorPrimary"/>
-
     </TableRow>
 
     <TableRow
@@ -75,8 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/paddleRedSeekBar"
-            android:max="255"
-            android:progress="255" />
+            android:max="127"
+            android:progress="127" />
 
     </TableRow>
 
@@ -100,8 +75,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/paddleGreenSeekBar"
             android:layout_column="1"
-            android:max="255"
-            android:progress="255"/>
+            android:max="127"
+            android:progress="127"/>
 
     </TableRow>
 
@@ -125,8 +100,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/paddleBlueSeekBar"
             android:layout_column="1"
-            android:max="255"
-            android:progress="255"/>
+            android:max="127"
+            android:progress="127"/>
 
     </TableRow>
 

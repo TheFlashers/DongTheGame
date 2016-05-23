@@ -1,19 +1,19 @@
 package dong.dms.dong;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.os.Parcelable;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class TagDetailsActivity extends Activity {
 
-    Player player;
-
-    TextView nameText,
-             winsText,
+    TextView winsText,
              lossesText;
 
     @Override
@@ -22,15 +22,35 @@ public class TagDetailsActivity extends Activity {
         super.onCreate(savedInstanceState);
         // Inflate layout
         setContentView(R.layout.tag_details_layout);
-        // Get player data from intent
-        player = (Player) this.getIntent().getSerializableExtra("player");
+
         // Get view elements
-        nameText = (TextView) findViewById(R.id.detailsNameText);
         winsText = (TextView) findViewById(R.id.detailsWinsCountText);
         lossesText = (TextView) findViewById(R.id.detailsLossesCountText);
-        // Set values on text elements
-        nameText.setText(player.getName());
-        winsText.setText(Integer.toString(player.getWins()));
-        lossesText.setText(Integer.toString(player.getLosses()));
+
+        Intent intent = getIntent();
+        //Check mime type, get ndef message  from intent and display the message in text view
+        if(intent.getType() != null && intent.getType().equals("application/aut.dong")) {
+            Parcelable[] rawMsgs = getIntent().getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            NdefMessage msg = (NdefMessage) rawMsgs[0];
+            NdefRecord record = msg.getRecords()[0];
+
+            // Fetch player data from NFC tag
+            Player player = (Player) NfcWriter.deserialize(record.getPayload());
+
+            // Store scanned player details in private application memory
+            SharedPreferences playerDetails = this.getSharedPreferences("playerDetails", Context.MODE_PRIVATE);
+            SharedPreferences.Editor edit = playerDetails.edit();
+            edit.putInt("wins", player.getWins());
+            edit.putInt("losses", player.getLosses());
+            edit.putInt("red", player.getRed());
+            edit.putInt("green", player.getGreen());
+            edit.putInt("blue", player.getBlue());
+            // Save data
+            edit.commit();
+
+            // Set values on text elements
+            winsText.setText(Integer.toString(player.getWins()));
+            lossesText.setText(Integer.toString(player.getLosses()));
+        }
     }
 }

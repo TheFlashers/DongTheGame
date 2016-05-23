@@ -57,8 +57,6 @@ public class ClientServerActivity extends Activity implements View.OnClickListen
 
         i.putExtra("client", cn);
         startActivity(i);
-
-
     }
 
     private void joinLogic() {
@@ -68,6 +66,14 @@ public class ClientServerActivity extends Activity implements View.OnClickListen
         ComNode chatNode = new DongClient();
         Intent intent = new Intent(this, ClientActivity.class);
         intent.putExtra("client", chatNode);
+        startActivity(intent);
+    }
+
+    private void gameWinLossSimulation() {
+
+        // Temp method for testing NFC functionality
+
+        Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
 }

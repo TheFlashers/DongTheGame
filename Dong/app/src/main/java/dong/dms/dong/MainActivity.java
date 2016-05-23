@@ -16,8 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnClickListener {
 
     Button playButton,
-           registerButton,
-           detailsButton;
+           registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +28,10 @@ public class MainActivity extends Activity implements OnClickListener {
         // Get view elements
         playButton = (Button) findViewById(R.id.playButton);
         registerButton = (Button) findViewById(R.id.registerButton);
-        detailsButton = (Button) findViewById(R.id.detailsButton);
 
         // Bind click events
         playButton.setOnClickListener(this);
         registerButton.setOnClickListener(this);
-        detailsButton.setOnClickListener(this);
     }
 
     @Override
@@ -47,8 +44,6 @@ public class MainActivity extends Activity implements OnClickListener {
                 intent = new Intent(this, ClientServerActivity.class); break;
             case R.id.registerButton :
                 intent = new Intent(this, RegisterTagActivity.class); break;
-            case R.id.detailsButton :
-                intent = new Intent(this, CheckTagActivity.class); break;
         }
 
         startActivity(intent);
