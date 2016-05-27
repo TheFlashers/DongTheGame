@@ -38,7 +38,7 @@ public class ClientActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        comNode.registerActivity(this);
+        //comNode.registerActivity(this);
         Thread thread = new Thread(comNode);
         thread.start();
 

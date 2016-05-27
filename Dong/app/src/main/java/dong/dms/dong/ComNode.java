@@ -10,9 +10,10 @@ public interface ComNode extends Runnable, Serializable {
 
     public static final UUID SERVICE_UUID
             = UUID.fromString("aa7e561f-591f-4767-bf26-e4bff3f0895f");
-    public static final String SERVICE_NAME = "Android Bluetooth Demo";
+    public static final String SERVICE_NAME = "DongGame";
+    public void setGameLogic(GameLogic gl);
     public void forward(GameObject go);
     public void stop();
-    public void registerActivity(ClientActivity clientActivity);
+    public void registerActivity(GameActivity activity);
 
 }

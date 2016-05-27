@@ -53,7 +53,7 @@ public class ClientServerActivity extends Activity implements View.OnClickListen
         // TODO - Create session and await connection
         //testing code for server and shit
         ComNode cn = new DongServer();
-        Intent i = new Intent(this, ClientActivity.class);
+        Intent i = new Intent(this, GameActivity.class);
 
         i.putExtra("client", cn);
         startActivity(i);
@@ -64,7 +64,7 @@ public class ClientServerActivity extends Activity implements View.OnClickListen
         //testing code for client and shit
 
         ComNode chatNode = new DongClient();
-        Intent intent = new Intent(this, ClientActivity.class);
+        Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("client", chatNode);
         startActivity(intent);
     }
