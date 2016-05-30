@@ -22,12 +22,20 @@ public class GameLogic {
         gameRunning = true;
         wins = 0;
         this.node = node;
+
+        hasReceived = node instanceof DongServer;
+        hasBall = node instanceof  DongServer;
         p = new Paddle(width, height);
-        ball = new Ball(width, height);
+        ball = new Ball(width, height, hasBall);
         screenHeight = height;
         screenWidth = width;
 
-        hasReceived = node instanceof DongServer;
+    }
+
+    public void restart() {
+        gameRunning = true;
+        p = new Paddle(screenWidth, screenHeight);
+        ball = new Ball(screenWidth, screenHeight, hasBall);
     }
 
     public void update() {
@@ -59,13 +67,28 @@ public class GameLogic {
                 hasReceived = true;
                 changeAngle();
             }
-            else
-                gameRunning = false;
+            else {
+                sendWinMessage();
+            }
         }
         moveBall();
         movePaddle();
     }
 
+
+    private void sendWinMessage() {
+
+        GameObject go = new GameObject();
+
+        if (wins == 3) {
+            go.isWonMatch = true;
+            gameRunning = false;
+        }
+        else {
+            go.isWonRound = true;
+            gameRunning = false;
+        }
+    }
 
     private void sendBallVelocity() {
         GameObject go =  new GameObject();
@@ -78,12 +101,23 @@ public class GameLogic {
         node.forward(go);
     }
 
-    public void receiveBall(GameObject go) {
-        ball.velocity_x = (int) go.velocityX;
-        ball.velocity_y = (int) go.velocityY;
-        ball.loc_x = (int)(screenWidth - ((double) screenWidth)/go.x);
-        hasBall=true;
-        Log.d("receive", go.velocityX+","+go.velocityY+","+ball.loc_x);
+    public void receiveMessage(GameObject go) {
+        if (!go.isWonRound) {
+            ball.velocity_x = (int) go.velocityX;
+            ball.velocity_y = (int) go.velocityY;
+            ball.loc_x = (int) (screenWidth - ((double) screenWidth) / go.x);
+            hasBall = true;
+            Log.d("receive", go.velocityX + "," + go.velocityY + "," + ball.loc_x);
+        }
+        else {
+            if (go.isWonMatch) {
+                //TODO: send information to trigger closing threads and switch activity
+            }
+            else {
+                wins++;
+                gameRunning = false;
+            }
+        }
     }
 
     private void movePaddle() {
@@ -116,10 +150,10 @@ public class GameLogic {
         int velocity_y = 15;
         int radius;
 
-        public Ball(int width, int height) {
+        public Ball(int width, int height, boolean hasBall) {
 
             radius = 32;
-            if (node instanceof DongServer) {
+            if (hasBall) {
                 loc_x = width/2;
                 loc_y = p.loc_y - (width/radius)-50;
             }

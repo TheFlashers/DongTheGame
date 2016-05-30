@@ -15,5 +15,6 @@ public interface ComNode extends Runnable, Serializable {
     public void forward(GameObject go);
     public void stop();
     public void registerActivity(GameActivity activity);
+    public void confirmConnect();
 
 }

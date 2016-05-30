@@ -19,6 +19,7 @@ public class GameActivity extends Activity {
 
     ComNode comNode;
     private boolean connected;
+    private boolean connectConfirmed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,9 @@ public class GameActivity extends Activity {
 
     public void setConnected(boolean conn) {
         connected = conn;
+    }
+    public void confirmConnect(boolean b) {
+        connectConfirmed = b;
     }
 
     public class BallView extends View {
@@ -85,7 +89,7 @@ public class GameActivity extends Activity {
                         } else {
                             game.p.velocity = -getWidth()/96;
                         }
-                        return true;
+                        break;
                     case MotionEvent.ACTION_UP:
                         game.p.velocity = 0;
                         break;
@@ -93,18 +97,25 @@ public class GameActivity extends Activity {
                 }
                 return true;
             }
-            else {
-                game.init(getWidth(), getHeight(), comNode);
-                game.hasBall = comNode instanceof DongServer;
-                comNode.setGameLogic(game);
-                return false;
+            else if (connected && connectConfirmed) {
+                if (game.ball == null) {
+                    game.init(getWidth(), getHeight(), comNode);
+                    comNode.setGameLogic(game);
+                    comNode.confirmConnect();
+                    return false;
+                }
+                else {
+                    game.restart();
+                    return false;
+                }
             }
+            return false;
         }
 
         @Override
         protected void onDraw(Canvas c) {
             super.onDraw(c);
-            if (game.gameRunning && connected) {
+            if (game.gameRunning && connected && connectConfirmed) {
 
                 paint.setStyle(Paint.Style.FILL);
                 game.update();
@@ -117,7 +128,13 @@ public class GameActivity extends Activity {
             else {
                 paint.setTextAlign(Paint.Align.CENTER);
                 paint.setTextSize(getWidth()/15);
-                c.drawText("Touch Screen to Start", getWidth()/2, getHeight()/2, paint);
+                if (connected) {
+                    if (connectConfirmed)
+                        c.drawText(getContext().getString(R.string.touch_to_start), getWidth() / 2, getHeight() / 2, paint);
+                    else
+                        c.drawText(getContext().getString(R.string.waiting), getWidth() / 2, getHeight() / 2, paint);
+                }
+                    else  c.drawText(getContext().getString(R.string.connecting), getWidth()/2, getHeight()/2, paint);
                 h.postDelayed(r, 30);
             }
         }

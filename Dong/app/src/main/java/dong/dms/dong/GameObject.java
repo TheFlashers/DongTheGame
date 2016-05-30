@@ -7,6 +7,7 @@ import org.json.JSONObject;
  * Created by MI on 20/05/16.
  */
 public class GameObject {
+    boolean connectConfirm = false;
     double velocityX = 0;
     double velocityY = 0;
     double x = 0;
@@ -17,6 +18,7 @@ public class GameObject {
 
         JSONObject GameObject = new JSONObject();
         try {
+            GameObject.put("confirm", connectConfirm);
             GameObject.put("velX", velocityX);
             GameObject.put("velY", velocityY);
             GameObject.put("x", x);
@@ -36,6 +38,7 @@ public class GameObject {
 
         try {
             JSONObject o = new JSONObject(s);
+            go.connectConfirm = o.getBoolean("confirm");
             go.velocityX = o.getDouble("velX");
             go.velocityY = o.getDouble("velY");
             go.x = o.getDouble("x");

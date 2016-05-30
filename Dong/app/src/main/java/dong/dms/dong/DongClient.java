@@ -88,6 +88,13 @@ public class DongClient implements ComNode {
     }
 
     @Override
+    public void confirmConnect() {
+        GameObject go = new GameObject();
+        go.connectConfirm = true;
+        forward(go);
+    }
+
+    @Override
     public void run() {
         stopRequested = false;
         devices.clear();
@@ -150,6 +157,8 @@ public class DongClient implements ComNode {
         Log.w("ChatClient", "Chat server service found");
         activity.setConnected(true);
         new Thread(new ObjectReceiver()).start();
+
+        activity.confirmConnect(true);
         //sending
 
 
@@ -186,6 +195,8 @@ public class DongClient implements ComNode {
                 Log.w("ChatClient", "Device discovery finished");
             }
         }
+
+
     }
 
     private class ObjectReceiver implements Runnable {
@@ -197,7 +208,7 @@ public class DongClient implements ComNode {
                 while (!stopRequested) {
                     String m = br.readLine();
                     GameObject go = GameObject.parseJSON(m);
-                    logic.receiveBall(go);
+                    logic.receiveMessage(go);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

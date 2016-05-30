@@ -3,7 +3,6 @@ package dong.dms.dong;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -74,6 +73,13 @@ public class DongServer implements ComNode{
         this.activity = activity;
     }
 
+    @Override
+    public void confirmConnect() {
+        GameObject go = new GameObject();
+        go.connectConfirm = true;
+        forward(go);
+    }
+
     private class ClientRunnable implements Runnable {
 
         private BluetoothSocket socket;
@@ -89,7 +95,7 @@ public class DongServer implements ComNode{
                 while(!stopRequested){
                     String m = br.readLine();
                     GameObject go = GameObject.parseJSON(m);
-                    logic.receiveBall(go);
+                    logic.receiveMessage(go);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -111,5 +117,9 @@ public class DongServer implements ComNode{
     }
 
 }
+
+
+
+
 
 

@@ -32,4 +32,9 @@
     <string name="register_tag_write">Write to tag</string>
     <string name="title_activity_tag_details">TagDetailsActivity</string>
     <string name="title_activity_check_tag">CheckTagActivity</string>
+
+    <!-- In Game text -->
+    <string name="touch_to_start">Touch to Start</string>
+    <string name="connecting">Connecting...</string>
+    <string name="waiting">Waiting for Other Player...</string>
 </resources>
