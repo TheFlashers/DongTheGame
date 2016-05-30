@@ -44,7 +44,7 @@ public class DongClient implements ComNode {
 
     @Override
     public void setGameLogic(GameLogic gl) {
-        this.logic = logic;
+        this.logic = gl;
     }
 
     @Override
@@ -148,6 +148,7 @@ public class DongClient implements ComNode {
         }
         activity.displayResult("CLIENT: chat server found");
         Log.w("ChatClient", "Chat server service found");
+        activity.setConnected(true);
         new Thread(new ObjectReceiver()).start();
         //sending
 

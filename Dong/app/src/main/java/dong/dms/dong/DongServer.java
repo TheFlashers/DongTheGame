@@ -42,6 +42,7 @@ public class DongServer implements ComNode{
                 ClientRunnable client = new ClientRunnable(socket);
                 this.client = client;
                 new Thread(client).start();
+                activity.setConnected(true);
                 found = true;
 
             } catch (IOException e) {
@@ -49,11 +50,13 @@ public class DongServer implements ComNode{
             }
         }
 
+
+
     }
 
     @Override
     public void setGameLogic(GameLogic gl) {
-        this.logic = logic;
+        this.logic = gl;
     }
 
     @Override

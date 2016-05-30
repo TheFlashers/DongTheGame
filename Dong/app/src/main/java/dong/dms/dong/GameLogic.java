@@ -1,6 +1,7 @@
 package dong.dms.dong;
 
 import android.graphics.Rect;
+import android.util.Log;
 
 /**
  * Created by Naki on 25/05/2016.
@@ -8,6 +9,8 @@ import android.graphics.Rect;
 public class GameLogic {
 
     public boolean gameRunning;
+    public boolean hasBall;
+    public boolean hasReceived;
     public int wins;
     public Ball ball;
     public Paddle p;
@@ -18,24 +21,42 @@ public class GameLogic {
     public void init(int width, int height, ComNode node) {
         gameRunning = true;
         wins = 0;
+        this.node = node;
         p = new Paddle(width, height);
         ball = new Ball(width, height);
         screenHeight = height;
         screenWidth = width;
+
+        hasReceived = node instanceof DongServer;
     }
 
     public void update() {
-        if (ball.loc_x + ball.getRadius() >= screenWidth || ball.loc_x - ball.getRadius() <= 0) {
+
+        if (ball.loc_x  >= screenWidth - ball.getRadius()) {
+            ball.loc_x = screenWidth - ball.getRadius();
             ball.velocity_x *= -1;
         }
-        if (ball.loc_y  <= 0-ball.getRadius()) {
-            //sendBallVelocity();
-            ball.velocity_x = 0;
-            ball.velocity_y = 0;
+        if (ball.loc_x  <= 0 + ball.getRadius()) {
+            ball.loc_x = 0 + ball.getRadius();
+            ball.velocity_x *= -1;
+        }
+
+        if (ball.loc_y  <= 0-ball.getRadius() && hasReceived) {
+            if (hasBall) {
+                Log.d("send", ball.velocity_x+","+ball.velocity_y+","+ball.loc_x);
+                sendBallVelocity();
+                hasBall = false;
+                hasReceived = false;
+                ball.velocity_x = 0;
+                ball.velocity_y = 0;
+            }
         }
         if (ball.loc_y + ball.getRadius() >= p.loc_y) {
             if ((ball.loc_x <= p.getPaddleDim().right*1.05 && ball.loc_x >= p.getPaddleDim().left*0.95)) {
+                if (ball.velocity_x < 0) ball.velocity_x-=3;
+                if (ball.velocity_x > 0) ball.velocity_x+=3;
                 ball.velocity_y *= -1;
+                hasReceived = true;
                 changeAngle();
             }
             else
@@ -50,17 +71,19 @@ public class GameLogic {
         GameObject go =  new GameObject();
         go.isWonMatch = this.wins == 3;
         go.isWonRound = false;
-        go.velocityX = screenWidth/(ball.velocity_x*-1);
-        go.velocityY = screenHeight/(ball.velocity_y*-1);
+        go.velocityX = -ball.velocity_x;
+        go.velocityY = -ball.velocity_y;
         go.x = screenWidth/ball.loc_x;
 
         node.forward(go);
     }
 
     public void receiveBall(GameObject go) {
-        ball.velocity_x = screenWidth/go.velocityX;
-        ball.velocity_y = screenHeight/go.velocityY;
-        ball.loc_x = screenWidth/go.x;
+        ball.velocity_x = (int) go.velocityX;
+        ball.velocity_y = (int) go.velocityY;
+        ball.loc_x = (int)(screenWidth - ((double) screenWidth)/go.x);
+        hasBall=true;
+        Log.d("receive", go.velocityX+","+go.velocityY+","+ball.loc_x);
     }
 
     private void movePaddle() {
@@ -78,9 +101,9 @@ public class GameLogic {
 
     private void changeAngle() {
         if (ball.loc_x < p.loc_x)
-            ball.velocity_x = -15;
+            ball.velocity_x = - Math.abs(ball.velocity_x);
         if (ball.loc_x > p.loc_x)
-            ball.velocity_x = 15;
+            ball.velocity_x = Math.abs(ball.velocity_x);
         if (ball.loc_x == p.loc_x)
             ball.velocity_x = 0;
 
@@ -94,9 +117,19 @@ public class GameLogic {
         int radius;
 
         public Ball(int width, int height) {
+
             radius = 32;
-            loc_x = width/2;
-            loc_y = p.loc_y - (width/radius)-50;
+            if (node instanceof DongServer) {
+                loc_x = width/2;
+                loc_y = p.loc_y - (width/radius)-50;
+            }
+            else {
+                loc_x = width/2;
+                loc_y = -(width/radius);
+                velocity_x = 0;
+                velocity_y = 0;
+            }
+
         }
 
         public int getRadius() {

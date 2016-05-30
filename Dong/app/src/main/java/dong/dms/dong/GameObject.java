@@ -7,9 +7,9 @@ import org.json.JSONObject;
  * Created by MI on 20/05/16.
  */
 public class GameObject {
-    int velocityX = 0;
-    int velocityY = 0;
-    int x = 0;
+    double velocityX = 0;
+    double velocityY = 0;
+    double x = 0;
     boolean isWonRound = false;
     boolean isWonMatch = false;
 
@@ -36,9 +36,9 @@ public class GameObject {
 
         try {
             JSONObject o = new JSONObject(s);
-            go.velocityX = o.getInt("velX");
-            go.velocityY = o.getInt("velY");
-            go.x = o.getInt("x");
+            go.velocityX = o.getDouble("velX");
+            go.velocityY = o.getDouble("velY");
+            go.x = o.getDouble("x");
             go.isWonRound = o.getBoolean("roundWon");
             go.isWonMatch = o.getBoolean("wonMatch");
         } catch (JSONException e) {

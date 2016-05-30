@@ -43,7 +43,7 @@ public class GameActivity extends Activity {
     }
 
     public void displayResult(String r) {
-        Toast.makeText(this, r, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, r, Toast.LENGTH_SHORT).show();
     }
 
     public void setConnected(boolean conn) {
@@ -70,6 +70,7 @@ public class GameActivity extends Activity {
             paint = new Paint();
             paint.setColor(Color.WHITE);
             game = new GameLogic();
+            comNode.setGameLogic(game);
             this.setBackgroundColor(Color.BLACK);
 
         }
@@ -94,6 +95,7 @@ public class GameActivity extends Activity {
             }
             else {
                 game.init(getWidth(), getHeight(), comNode);
+                game.hasBall = comNode instanceof DongServer;
                 comNode.setGameLogic(game);
                 return false;
             }
@@ -102,7 +104,7 @@ public class GameActivity extends Activity {
         @Override
         protected void onDraw(Canvas c) {
             super.onDraw(c);
-            if (game.gameRunning /*&& connected*/) {
+            if (game.gameRunning && connected) {
 
                 paint.setStyle(Paint.Style.FILL);
                 game.update();
