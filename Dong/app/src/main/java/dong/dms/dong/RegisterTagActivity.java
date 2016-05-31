@@ -79,11 +79,11 @@ public class RegisterTagActivity extends Activity implements View.OnClickListene
                 // Store scanned player details in private application memory
                 SharedPreferences playerDetails = this.getSharedPreferences("playerDetails", Context.MODE_PRIVATE);
                 SharedPreferences.Editor edit = playerDetails.edit();
-                edit.putString("wins", String.valueOf(player.getWins()));
-                edit.putString("losses", String.valueOf(player.getLosses()));
-                edit.putString("red", String.valueOf(player.getRed()));
-                edit.putString("green", String.valueOf(player.getGreen()));
-                edit.putString("blue", String.valueOf(player.getBlue()));
+                edit.putInt("wins", player.getWins());
+                edit.putInt("losses", player.getLosses());
+                edit.putInt("red", player.getRed());
+                edit.putInt("green", player.getGreen());
+                edit.putInt("blue", player.getBlue());
                 edit.commit();
 
                 // Notify user
@@ -102,7 +102,8 @@ public class RegisterTagActivity extends Activity implements View.OnClickListene
     @Override
     public void onPause() {
         super.onPause();
-        disableWriteMode();
+        if(nfcAdapter != null)
+            disableWriteMode();
     }
 
     @Override
@@ -110,12 +111,16 @@ public class RegisterTagActivity extends Activity implements View.OnClickListene
 
         // Write Button click
         if(view.getId() == R.id.writeButton) {
-
-            // Notify user of ability to write
-            Toast toast = Toast.makeText(this.getApplicationContext(), "Write Enabled, Hold tag to write data",
-                    Toast.LENGTH_SHORT);
-            toast.show();
-            enableWriteMode();
+            if (nfcAdapter != null) {
+                // Notify user of ability to write
+                Toast toast = Toast.makeText(this.getApplicationContext(), "Write Enabled, Hold tag to write data",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                enableWriteMode();
+            }
+            else {
+                Toast.makeText(this.getApplicationContext(), "Device does not support NFC", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -151,7 +156,7 @@ public class RegisterTagActivity extends Activity implements View.OnClickListene
                     blue = (byte) progress; break;
             }
 
-            paddleColour.setBackgroundColor(Color.rgb(red, green, blue));
+            paddleColour.setBackgroundColor(Color.rgb(red*2, green*2, blue*2));
         }
 
         @Override

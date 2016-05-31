@@ -12,8 +12,8 @@ public class Player implements Serializable {
     private byte blue;
 
     public Player() {
-        wins = (byte) new Random().nextInt(100);
-        losses = (byte) new Random().nextInt(100);
+        wins = 0;
+        losses = 0;
     }
 
     public void setWins(byte wins) {

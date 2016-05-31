@@ -29,11 +29,9 @@ public class DongClient implements ComNode {
     private GameLogic logic;
     private boolean stopRequested = false;
     private BluetoothSocket socket;
-    private List<String> messages;//list of messages still to be mailed
 
 
     DongClient() {
-        messages = new ArrayList<String>();
         deviceDiscoveryBroadcastReceiver = null;
         activity = null;
         devices = new ArrayList<BluetoothDevice>();
@@ -70,9 +68,6 @@ public class DongClient implements ComNode {
         }
         synchronized (devices) {
             devices.notifyAll();
-        }
-        synchronized (messages) {
-            messages.notifyAll();
         }
         if (socket != null) {
             try {
@@ -125,8 +120,6 @@ public class DongClient implements ComNode {
             }
         }
         if (devices.size() == 0 && !stopRequested) {
-            activity.displayResult
-                    ("CLIENT: no devices discovered, restart client");
             Log.w("Devices", "No devices discovered");
             stopRequested = true;
             return;
@@ -137,9 +130,7 @@ public class DongClient implements ComNode {
         socket = null;
         for (BluetoothDevice device : devices) {  // try to open a connection to device using UUID
             try {
-                activity.displayResult
-                        ("CLIENT: checking for server on " + device.getName());
-                Log.w("ChatClient", "Checking for server on "
+                Log.w("DongClient", "Checking for server on "
                         + device.getName());
                 socket = device.createRfcommSocketToServiceRecord
                         (ComNode.SERVICE_UUID);
@@ -152,14 +143,11 @@ public class DongClient implements ComNode {
             }
         }
         if (socket == null) {
-            activity.displayResult
-                    ("CLIENT: no server found, restart client");
-            Log.e("ChatClient", "No server service found");
+            Log.e("DongClient", "No server service found");
             stopRequested = true;
             return;
         }
-        activity.displayResult("CLIENT: chat server found");
-        Log.w("ChatClient", "Chat server service found");
+        Log.w("DongClient", "Dong server service found");
         activity.setConnected(true);
         new Thread(new ObjectReceiver()).start();
 
@@ -182,22 +170,16 @@ public class DongClient implements ComNode {
                     devices.add(device);
                 }
                 // note newer API can use device.fetchUuidsWithSdp for SDP
-                activity.displayResult
-                        ("CLIENT: device discovered " + device.getName());
-                Log.w("ChatClient", "Device discovered " + device.getName());
+                Log.w("DongClient", "Device discovered " + device.getName());
             } else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals
                     (action)) {
-                activity.displayResult
-                        ("CLIENT: device discovery started");
-                Log.w("ChatClient", "Device discovery started");
+                Log.w("DongClient", "Device discovery started");
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals
                     (action)) {  // notify chat client that device discovery has finished
                 synchronized (devices) {
                     devices.notifyAll();
                 }
-                activity.displayResult
-                        ("CLIENT: device discovery finished");
-                Log.w("ChatClient", "Device discovery finished");
+                Log.w("DongClient", "Device discovery finished");
             }
         }
 

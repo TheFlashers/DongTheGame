@@ -50,8 +50,6 @@ public class ClientServerActivity extends Activity implements View.OnClickListen
     }
 
     private void hostLogic() {
-        // TODO - Create session and await connection
-        //testing code for server and shit
         ComNode cn = new DongServer();
         Intent i = new Intent(this, GameActivity.class);
 
@@ -60,9 +58,6 @@ public class ClientServerActivity extends Activity implements View.OnClickListen
     }
 
     private void joinLogic() {
-        // TODO - Join created session
-        //testing code for client and shit
-
         ComNode chatNode = new DongClient();
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("client", chatNode);

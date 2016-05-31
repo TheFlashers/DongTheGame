@@ -3,6 +3,7 @@ package dong.dms.dong;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,6 +19,7 @@ public class GameActivity extends Activity {
     ComNode comNode;
     private boolean connected;
     private boolean connectConfirmed;
+    private SharedPreferences playerDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class GameActivity extends Activity {
 
         Intent intent = getIntent();
         comNode = (ComNode)intent.getExtras().get("client");
+        playerDetails = this.getSharedPreferences("playerDetails", Context.MODE_PRIVATE);
         // Inflate layout
         BallView bv = new BallView(this);
         setContentView(bv);
@@ -49,15 +52,16 @@ public class GameActivity extends Activity {
 
     }
 
-    public void displayResult(String r) {
-        //Toast.makeText(this, r, Toast.LENGTH_SHORT).show();
-    }
 
     public void setConnected(boolean conn) {
         connected = conn;
     }
     public void confirmConnect(boolean b) {
         connectConfirmed = b;
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 
     public class BallView extends View {
@@ -78,7 +82,7 @@ public class GameActivity extends Activity {
         public BallView(Context context) {
             super(context);
             paint = new Paint();
-            paint.setColor(Color.WHITE);
+            paint.setColor(Color.rgb(playerDetails.getInt("red", 127)*2, playerDetails.getInt("green", 127)*2,  playerDetails.getInt("blue", 127)*2));
             game = new GameLogic(comNode, (GameActivity) this.getContext());
             comNode.setGameLogic(game);
             this.setBackgroundColor(Color.BLACK);

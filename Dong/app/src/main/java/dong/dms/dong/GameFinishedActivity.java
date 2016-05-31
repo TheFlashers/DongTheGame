@@ -2,6 +2,8 @@ package dong.dms.dong;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.bluetooth.BluetoothA2dp;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -55,6 +57,7 @@ public class GameFinishedActivity extends Activity implements View.OnClickListen
     @Override
     public void onPause() {
         super.onPause();
+        if(nfcAdapter != null)
         disableWriteMode();
     }
 
@@ -64,11 +67,24 @@ public class GameFinishedActivity extends Activity implements View.OnClickListen
         // Write button click
         if(view.getId() == R.id.writeTagButton) {
             // Notify user of ability to write
-            Toast toast = Toast.makeText(this.getApplicationContext(), "Write Enabled, Hold tag to write data",
-                    Toast.LENGTH_SHORT);
-            toast.show();
-            enableWriteMode();
+            if (nfcAdapter != null) {
+                Toast toast = Toast.makeText(this.getApplicationContext(), "Write Enabled, Hold tag to write data",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                enableWriteMode();
+            }
+            else {
+                Toast.makeText(this.getApplicationContext(), "Device does not support NFC", Toast.LENGTH_SHORT).show();
+            }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        BluetoothAdapter.getDefaultAdapter().disable();
+        startActivity(intent);
     }
 
     @Override
@@ -104,11 +120,11 @@ public class GameFinishedActivity extends Activity implements View.OnClickListen
                 player.setPaddleColours((byte) 127, (byte) 127, (byte) 127);
                 // Store new player data into private app memory
                 SharedPreferences.Editor edit = playerDetails.edit();
-                edit.putString("wins", String.valueOf(player.getWins()));
-                edit.putString("losses", String.valueOf(player.getLosses()));
-                edit.putString("red", String.valueOf(player.getRed()));
-                edit.putString("green", String.valueOf(player.getGreen()));
-                edit.putString("blue", String.valueOf(player.getBlue()));
+                edit.putInt("wins", player.getWins());
+                edit.putInt("losses", player.getLosses());
+                edit.putInt("red", player.getRed());
+                edit.putInt("green", player.getGreen());
+                edit.putInt("blue", player.getBlue());
                 edit.commit();
             }
             else {
