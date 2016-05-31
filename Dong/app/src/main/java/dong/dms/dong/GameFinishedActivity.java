@@ -27,7 +27,7 @@ public class GameFinishedActivity extends Activity implements View.OnClickListen
     TextView resultText;
     Button writeButton;
     // Temporary flag for winning/losing testing
-    int result;
+    boolean result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,8 @@ public class GameFinishedActivity extends Activity implements View.OnClickListen
         writeButton.setOnClickListener(this);
 
         // TESTING ELEMENTS
-        result = new Random().nextInt(2);
-        String resultMessage = (result == 0) ? "You Lost!" : "You Won!";
+        result = getIntent().getBooleanExtra("win", false);
+        String resultMessage = (!result) ? "You Lost!" : "You Won!";
         resultText.setText(resultMessage);
     }
 
@@ -90,7 +90,7 @@ public class GameFinishedActivity extends Activity implements View.OnClickListen
 
             // No stored player data
             if(details.size() == 0) {
-                if(result == 0) {
+                if(!result) {
                     player.setWins((byte) 0);
                     player.setLosses((byte) 0);
                     player.incrementLosses();
@@ -121,7 +121,7 @@ public class GameFinishedActivity extends Activity implements View.OnClickListen
             }
 
             // TESTING ELEMENT
-            if(result == 0)
+            if(!result)
                 player.incrementLosses();
             else
                 player.incrementWins();

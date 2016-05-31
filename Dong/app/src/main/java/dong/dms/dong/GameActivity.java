@@ -7,11 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.Random;
 
@@ -32,6 +30,14 @@ public class GameActivity extends Activity {
         BallView bv = new BallView(this);
         setContentView(bv);
 
+    }
+
+    public void gameComplete(boolean won) {
+        Intent intent = new Intent(this, GameFinishedActivity.class);
+        intent.putExtra("win", won);
+        startActivity(intent);
+
+        comNode.stop();
     }
 
     @Override
@@ -73,7 +79,7 @@ public class GameActivity extends Activity {
             super(context);
             paint = new Paint();
             paint.setColor(Color.WHITE);
-            game = new GameLogic();
+            game = new GameLogic(comNode, (GameActivity) this.getContext());
             comNode.setGameLogic(game);
             this.setBackgroundColor(Color.BLACK);
 
@@ -85,9 +91,9 @@ public class GameActivity extends Activity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         if (event.getX() > getWidth() / 2) {
-                            game.p.velocity = getWidth()/96;
+                            game.p.velocity = 20;
                         } else {
-                            game.p.velocity = -getWidth()/96;
+                            game.p.velocity = -20;
                         }
                         break;
                     case MotionEvent.ACTION_UP:
@@ -99,9 +105,9 @@ public class GameActivity extends Activity {
             }
             else if (connected && connectConfirmed) {
                 if (game.ball == null) {
-                    game.init(getWidth(), getHeight(), comNode);
+                    game.init(getWidth(), getHeight());
                     comNode.setGameLogic(game);
-                    comNode.confirmConnect();
+                    comNode.sendConfirm(true);
                     return false;
                 }
                 else {
@@ -118,10 +124,12 @@ public class GameActivity extends Activity {
             if (game.gameRunning && connected && connectConfirmed) {
 
                 paint.setStyle(Paint.Style.FILL);
+                paint.setTextAlign(Paint.Align.LEFT);
                 game.update();
 
                 c.drawCircle(game.ball.loc_x, game.ball.loc_y, game.ball.getRadius(), paint);
                 c.drawRect(game.p.getPaddleDim(), paint);
+                c.drawText(game.myScore+" : "+game.oppScore, getWidth()/96 , getHeight()/8 , paint);
 
                 h.postDelayed(r, 10);
             }

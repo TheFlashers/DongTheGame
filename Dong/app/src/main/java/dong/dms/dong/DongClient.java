@@ -88,10 +88,15 @@ public class DongClient implements ComNode {
     }
 
     @Override
-    public void confirmConnect() {
+    public void sendConfirm(boolean confirm) {
         GameObject go = new GameObject();
-        go.connectConfirm = true;
+        go.connectConfirm = confirm;
         forward(go);
+    }
+
+    @Override
+    public void setConfirm(boolean set) {
+        activity.confirmConnect(set);
     }
 
     @Override

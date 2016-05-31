@@ -7,10 +7,11 @@ import org.json.JSONObject;
  * Created by MI on 20/05/16.
  */
 public class GameObject {
-    boolean connectConfirm = false;
+    boolean connectConfirm;
     double velocityX = 0;
     double velocityY = 0;
     double x = 0;
+    int score = 0;
     boolean isWonRound = false;
     boolean isWonMatch = false;
 
@@ -18,10 +19,11 @@ public class GameObject {
 
         JSONObject GameObject = new JSONObject();
         try {
-            GameObject.put("confirm", connectConfirm);
+            GameObject.put("connect", connectConfirm);
             GameObject.put("velX", velocityX);
             GameObject.put("velY", velocityY);
             GameObject.put("x", x);
+            GameObject.put("score", score);
             GameObject.put("roundWon", isWonRound);
             GameObject.put("wonMatch", isWonMatch);
 
@@ -38,10 +40,11 @@ public class GameObject {
 
         try {
             JSONObject o = new JSONObject(s);
-            go.connectConfirm = o.getBoolean("confirm");
+            go.connectConfirm = o.getBoolean("connect");
             go.velocityX = o.getDouble("velX");
             go.velocityY = o.getDouble("velY");
             go.x = o.getDouble("x");
+            go.score = o.getInt("score");
             go.isWonRound = o.getBoolean("roundWon");
             go.isWonMatch = o.getBoolean("wonMatch");
         } catch (JSONException e) {

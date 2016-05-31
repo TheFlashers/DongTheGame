@@ -11,17 +11,22 @@ public class GameLogic {
     public boolean gameRunning;
     public boolean hasBall;
     public boolean hasReceived;
-    public int wins;
     public Ball ball;
     public Paddle p;
+    public int myScore;
+    public int oppScore;
     public int screenWidth;
     public int screenHeight;
+    public GameActivity activity;
     public ComNode node;
 
-    public void init(int width, int height, ComNode node) {
-        gameRunning = true;
-        wins = 0;
+    public GameLogic(ComNode node, GameActivity activity) {
         this.node = node;
+        this.activity = activity;
+    }
+
+    public void init(int width, int height) {
+        gameRunning = true;
 
         hasReceived = node instanceof DongServer;
         hasBall = node instanceof  DongServer;
@@ -29,6 +34,8 @@ public class GameLogic {
         ball = new Ball(width, height, hasBall);
         screenHeight = height;
         screenWidth = width;
+        myScore = 0;
+        oppScore = 0;
 
     }
 
@@ -68,7 +75,9 @@ public class GameLogic {
                 changeAngle();
             }
             else {
+                oppScore++;
                 sendWinMessage();
+                restart();
             }
         }
         moveBall();
@@ -80,19 +89,24 @@ public class GameLogic {
 
         GameObject go = new GameObject();
 
-        if (wins == 3) {
+        if (oppScore > 2) {
             go.isWonMatch = true;
+            go.isWonRound = true;
             gameRunning = false;
+            node.forward(go);
+            activity.gameComplete(false);
         }
         else {
             go.isWonRound = true;
-            gameRunning = false;
+            go.score = myScore;
+            node.forward(go);
         }
+
+
     }
 
     private void sendBallVelocity() {
         GameObject go =  new GameObject();
-        go.isWonMatch = this.wins == 3;
         go.isWonRound = false;
         go.velocityX = -ball.velocity_x;
         go.velocityY = -ball.velocity_y;
@@ -102,7 +116,10 @@ public class GameLogic {
     }
 
     public void receiveMessage(GameObject go) {
-        if (!go.isWonRound) {
+        if (go.connectConfirm) {
+            node.setConfirm(go.connectConfirm);
+        }
+        else if (!go.isWonRound) {
             ball.velocity_x = (int) go.velocityX;
             ball.velocity_y = (int) go.velocityY;
             ball.loc_x = (int) (screenWidth - ((double) screenWidth) / go.x);
@@ -110,12 +127,12 @@ public class GameLogic {
             Log.d("receive", go.velocityX + "," + go.velocityY + "," + ball.loc_x);
         }
         else {
-            if (go.isWonMatch) {
-                //TODO: send information to trigger closing threads and switch activity
+            if(!go.isWonMatch) {
+                oppScore = go.score;
+                myScore++;
             }
             else {
-                wins++;
-                gameRunning = false;
+                activity.gameComplete(true);
             }
         }
     }
@@ -134,10 +151,18 @@ public class GameLogic {
     }
 
     private void changeAngle() {
-        if (ball.loc_x < p.loc_x)
-            ball.velocity_x = - Math.abs(ball.velocity_x);
-        if (ball.loc_x > p.loc_x)
-            ball.velocity_x = Math.abs(ball.velocity_x);
+        if (ball.loc_x < p.loc_x) {
+            if (ball.velocity_x == 0)
+                ball.velocity_x = -10;
+            else
+                ball.velocity_x -=2;
+        }
+        if (ball.loc_x > p.loc_x) {
+            if (ball.velocity_x == 0)
+                ball.velocity_x = 10;
+            else
+                ball.velocity_x +=2;
+        }
         if (ball.loc_x == p.loc_x)
             ball.velocity_x = 0;
 
@@ -146,8 +171,8 @@ public class GameLogic {
     public class Ball {
         int loc_x;
         int loc_y;
-        int velocity_x = -15;
-        int velocity_y = 15;
+        int velocity_x = 0;
+        int velocity_y = 10;
         int radius;
 
         public Ball(int width, int height, boolean hasBall) {
@@ -155,7 +180,7 @@ public class GameLogic {
             radius = 32;
             if (hasBall) {
                 loc_x = width/2;
-                loc_y = p.loc_y - (width/radius)-50;
+                loc_y = height/2;
             }
             else {
                 loc_x = width/2;
