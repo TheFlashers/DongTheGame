@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -20,6 +21,7 @@ public class GameActivity extends Activity {
     private boolean connected;
     private boolean connectConfirmed;
     private SharedPreferences playerDetails;
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class GameActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        mp = MediaPlayer.create(this, R.raw.polka);
+        mp.start();
         comNode.registerActivity(this);
         Thread thread = new Thread(comNode);
         thread.start();
@@ -62,6 +66,7 @@ public class GameActivity extends Activity {
 
     @Override
     public void onBackPressed() {
+        mp.stop();
     }
 
     public class BallView extends View {
